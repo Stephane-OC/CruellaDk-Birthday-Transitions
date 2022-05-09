@@ -1,0 +1,119 @@
+@use "sass:math";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+
+html, body, h1 {
+	padding: 0;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+}
+
+#app {
+	background: rgb(10,10,10);
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background: linear-gradient(rgba(10,10,10,.6),rgba(0,0,0,.9)), repeating-linear-gradient(0, transparent, transparent 2px, black 3px, black 3px),
+		url('assets/gif/Transi\ 1\ Archonte.gif');
+	background-position: center;
+	background-size: cover;
+	z-index: 1;
+}
+
+#wrapper {
+	text-align: center;
+}
+
+.sub {
+	color: rgb(100,220,220);
+	letter-spacing: 1em;
+	font-size: larger;
+}
+
+@mixin distortCopy { 
+		content: attr(data-text);
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+}
+
+.distort {
+	position: relative;
+	color: white;
+	font-size: 4em;
+	letter-spacing: .5em;
+	font-weight: 400;
+	animation: distort-glitch 1s infinite linear alternate-reverse;
+	margin-bottom: 0.3em;
+	
+ 
+	&::before{
+
+		@include distortCopy;
+
+		left: 2px;
+		text-shadow: -2px 0 #ff00c2;
+		clip: rect(44px, 450px, 56px, 0);
+		animation: distort-anim 5s infinite linear alternate-reverse;
+	}
+	
+
+	&::after {
+		@include distortCopy;
+
+		left: -2px;
+		text-shadow: -2px 0 #00fff9, 2px 2px #ff00c2;
+		animation: distort-anim2 1s infinite linear alternate-reverse;
+	}
+}
+
+
+@keyframes distort-anim {
+  $steps: 24;
+  @for $i from 0 through $steps {
+    #{percentage($i*math.div(1, $steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+			transform: distort((random(100) * 0.01) + deg);
+    }
+  }
+}
+
+
+@keyframes distort-anim2 {
+  $steps: 24;
+  @for $i from 0 through $steps {
+    #{percentage($i*math.div(1, $steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+			transform: distort((random(100) * 0.01) + deg);
+    }
+  }
+}
+
+@keyframes distort-anim3 {
+	$steps: 24;
+	@for $i from 0 through $steps {
+	  #{percentage($i*math.div(1, $steps))} {
+		clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+			  transform: distort((random(100) * 0.01) + deg);
+	  }
+	}
+  }
+
+
+@keyframes distort-glitch {
+  $steps: 10;
+  @for $i from 0 through $steps {
+    #{percentage($i*($steps))} {
+      transform: distort((random(10) - 5) + deg);
+    }
+  }
+}
